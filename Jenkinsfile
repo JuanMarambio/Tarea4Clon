@@ -16,7 +16,7 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        sh ' /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin run --rm -v "$(pwd):/src" aquasec/tfsec .'
+        sh '  run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
     stage('Approval for Terraform') {
