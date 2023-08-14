@@ -16,7 +16,83 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        sh ' C:\Users\56985\AppData\Local\Docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
+        sh ' pipeline {
+    agent any
+    options {
+        skipDefaultCheckout(true)
+    }
+    stages {
+        stage('clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+    stage('tfsec') {
+      steps {
+        sh ' pipeline {
+    agent any
+    options {
+        skipDefaultCheckout(true)
+    }
+    stages {
+        stage('clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+    stage('tfsec') {
+      steps {
+        sh ' \\wsl.localhost\docker-desktop run --rm -v "$(pwd):/src" aquasec/tfsec .'
+      }
+    }
+    stage('Approval for Terraform') {
+            steps {
+                input(message: 'Approval required before Terraform', ok: 'Proceed', submitterParameter: 'APPROVER')
+            }
+        }
+
+        stage('terraform') {
+            steps {
+                sh '/opt/homebrew/bin/terraform apply -auto-approve -no-color'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+} run --rm -v "$(pwd):/src" aquasec/tfsec .'
+      }
+    }
+    stage('Approval for Terraform') {
+            steps {
+                input(message: 'Approval required before Terraform', ok: 'Proceed', submitterParameter: 'APPROVER')
+            }
+        }
+
+        stage('terraform') {
+            steps {
+                sh '/opt/homebrew/bin/terraform apply -auto-approve -no-color'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+} run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
     stage('Approval for Terraform') {
