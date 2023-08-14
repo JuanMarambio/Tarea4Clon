@@ -16,7 +16,7 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        sh ' /var/lib/docker/volumes/c79cb1bd92f0f62b7ca7c0af333c0f814065fa67126c1ef498f60fc54c310e20/_data run --rm -v "$(pwd):/src" aquasec/tfsec .'
+        sh ' /var/lib/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
     stage('Approval for Terraform') {
