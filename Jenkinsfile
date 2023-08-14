@@ -16,7 +16,7 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        sh ' \\wsl.localhost\docker-desktop run --rm -v "$(pwd):/src" aquasec/tfsec .'
+        sh ' /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
     stage('Approval for Terraform') {
